@@ -51,14 +51,18 @@ def run_optimization(data_path: str, num_trials: int):
     }
 
     rstate = np.random.default_rng(42)  # for reproducible results
-    fmin(
+    rf_trials = Trials()
+
+    best = fmin(
         fn=objective,
         space=search_space,
         algo=tpe.suggest,
         max_evals=num_trials,
-        trials=Trials(),
+        trials=rf_trials,
         rstate=rstate
     )
+    
+    mlflow.log_params(best)
 
 
 if __name__ == '__main__':
