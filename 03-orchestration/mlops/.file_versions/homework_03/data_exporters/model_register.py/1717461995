@@ -16,16 +16,14 @@ def export_data(data, *args, **kwargs):
         Optionally return any object and it'll be logged and
         displayed when inspecting the block run.
     """
-    mlflow.set_tracking_uri("http://mlflow:5000")
+    mlflow.set_tracking_uri("http://mlflow:5001")
     mlflow.set_experiment('ny_mage_taxi')
     mlflow.sklearn.autolog()
     mlflow.sklearn.log_model(
-        sk_model=data,
-        artifact_path="ny-model",
+        sk_model=model,
+        artifact_path="sklearn-model",
+        signature=signature,
         registered_model_name="sk-learn-random-forest-reg-model",
     )
-    result = mlflow.register_model(
-    "runs:/bb997e6ccf4842318174ad3ddd4c6847/sklearn-model", "sk-learn-ny-lr")
-    return result
 
 

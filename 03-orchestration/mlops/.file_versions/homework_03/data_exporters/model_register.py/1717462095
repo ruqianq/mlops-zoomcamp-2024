@@ -24,8 +24,5 @@ def export_data(data, *args, **kwargs):
         artifact_path="ny-model",
         registered_model_name="sk-learn-random-forest-reg-model",
     )
-    result = mlflow.register_model(
-    "runs:/bb997e6ccf4842318174ad3ddd4c6847/sklearn-model", "sk-learn-ny-lr")
-    return result
 
 
