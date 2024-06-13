@@ -7,6 +7,8 @@ name = "pypi"
 scikit-learn = "==1.5.0"
 pandas = "*"
 pyarrow = "*"
+gunicorn = "*"
+flask = "*"
 
 [dev-packages]
 
