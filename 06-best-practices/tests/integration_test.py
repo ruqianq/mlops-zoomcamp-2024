@@ -1,11 +1,25 @@
-from datetime import datetime
+from io import BytesIO
+import os
 from batch import read_data, prepare_data
 import pandas as pd
 import boto3
-from io import BytesIO
-import os
+from datetime import datetime
 
 
+def save_data(df, bucket, key):
+
+    df.to_parquet("output.parquet", engine="pyarrow", compression=None, index=False)
+    s3 = boto3.client(
+        "s3",
+        endpoint_url=f"http://localhost:4566",
+        aws_access_key_id="test",
+        aws_secret_access_key="test",
+    )
+    with open("output.parquet", "rb") as f:
+        s3.put_object(Key=key, Body=f, Bucket=bucket)
+
+
+# Example usage
 def dt(hour, minute, second=0):
     return datetime(2023, 1, 1, hour, minute, second)
 
@@ -25,25 +39,8 @@ columns = [
 ]
 df = pd.DataFrame(data, columns=columns)
 
-
-def save_data(df, bucket, key):
-    df.to_parquet(
-        "s3://nyc-duration/file.parquet",
-        engine="pyarrow",
-        compression=None,
-        index=False,
-        storage_options=options,
-    )
-
 save_data(df, "nyc-duration", "file.parquet")
-S3_ENDPOINT_URL = os.getenv("S3_ENDPOINT_URL", None)
-
-options = {"client_kwargs": {"endpoint_url": S3_ENDPOINT_URL}}
-
 
 def test_read_data():
-    df_output = read_data(
-        "s3://nyc-duration/file.parquet", ["PULocationID", "DOLocationID"]
-    )
-    
-    assert df_output.shape[0] == 2
+    df_test = read_data("s3://nyc-duration/file.parquet", categorical=["PULocationID", "DOLocationID"])
+    assert df_test.shape[0] == 2

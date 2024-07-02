@@ -18,17 +18,16 @@ def prepare_data(categorical, df):
 
 
 def read_data(filename, categorical: list):
-    S3_ENDPOINT_URL = os.getenv('S3_ENDPOINT_URL', None)
-    if S3_ENDPOINT_URL is not None:
-        options = {
+
+    options = {
         'client_kwargs': {
-            'endpoint_url': S3_ENDPOINT_URL
+            'endpoint_url': "http://localhost:4566",
+            'aws_access_key_id': "test",
+            'aws_secret_access_key': "test"    
         }
     }
 
-        df = pd.read_parquet('s3://bucket/file.parquet', storage_options=options)
-    else:
-        df = pd.read_parquet(filename)
+    df = pd.read_parquet(filename, storage_options=options)
 
     return prepare_data(categorical, df)
 
@@ -70,6 +69,7 @@ def main(year, month):
         df_result = pd.DataFrame()
         df_result["ride_id"] = df["ride_id"]
         df_result["predicted_duration"] = y_pred
+        print(sum(y_pred))
 
         df_result.to_parquet(output_file, engine="pyarrow", index=False)   
     
