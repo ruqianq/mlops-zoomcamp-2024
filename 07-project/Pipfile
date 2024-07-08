@@ -8,6 +8,8 @@ pre-commit = "*"
 mlflow = "*"
 pandas = "*"
 notebook = "*"
+aws-cdk-lib = "*"
+constructs = "*"
 
 [dev-packages]
 
