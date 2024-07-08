@@ -1,0 +1,365 @@
+{
+  "version": "36.0.0",
+  "artifacts": {
+    "MLflowStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MLflowStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MLflowStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "MLflowStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b8b295fdc767881a9af6c581b439d9f151f6f81ea3e55d6ba4104a7158f74381.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MLflowStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "MLflowStack.assets"
+      ],
+      "metadata": {
+        "/MLflowStack/ProjectName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProjectName"
+          }
+        ],
+        "/MLflowStack/TASKROLE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TASKROLEA2089027"
+          }
+        ],
+        "/MLflowStack/DBSECRET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DBSECRETE6F61AC6"
+          }
+        ],
+        "/MLflowStack/VPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCB9E5F0B4"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet1SubnetB4246D30"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet1RouteTableFEE4B781"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet1RouteTableAssociation0B0896DC"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet1DefaultRoute91CEF279"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet1EIP6AD938E8"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet1NATGatewayE0556630"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet2Subnet74179F39"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet2RouteTable6F1A15F1"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet2RouteTableAssociation5A808732"
+          }
+        ],
+        "/MLflowStack/VPC/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPublicSubnet2DefaultRouteB7481BBA"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet1Subnet8BCA10E0"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet1RouteTableBE8A6027"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet1RouteTableAssociation347902D1"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet1DefaultRouteAE1D6490"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet2SubnetCFCDAA7A"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet2RouteTable0A19E10E"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet2RouteTableAssociation0C73D413"
+          }
+        ],
+        "/MLflowStack/VPC/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCPrivateSubnet2DefaultRouteF4F5CFD2"
+          }
+        ],
+        "/MLflowStack/VPC/DBSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCDBSubnet1Subnet5E0CF118"
+          }
+        ],
+        "/MLflowStack/VPC/DBSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCDBSubnet1RouteTableD25F5A48"
+          }
+        ],
+        "/MLflowStack/VPC/DBSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCDBSubnet1RouteTableAssociationDC8481F9"
+          }
+        ],
+        "/MLflowStack/VPC/DBSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCDBSubnet2SubnetDABA49CF"
+          }
+        ],
+        "/MLflowStack/VPC/DBSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCDBSubnet2RouteTable51E969F8"
+          }
+        ],
+        "/MLflowStack/VPC/DBSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCDBSubnet2RouteTableAssociationF6FBF57B"
+          }
+        ],
+        "/MLflowStack/VPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCIGWB7E252D3"
+          }
+        ],
+        "/MLflowStack/VPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCVPCGW99B986DC"
+          }
+        ],
+        "/MLflowStack/VPC/S3Endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPCS3Endpoint18C9C7CA"
+          }
+        ],
+        "/MLflowStack/ARTIFACTBUCKET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ARTIFACTBUCKET3AC4D6FF"
+          }
+        ],
+        "/MLflowStack/SGRDS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SGRDS8D02E925"
+          }
+        ],
+        "/MLflowStack/MYSQL/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MYSQLSubnetGroup5B5FBC17"
+          }
+        ],
+        "/MLflowStack/MYSQL/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MYSQLDA998D0F"
+          }
+        ],
+        "/MLflowStack/CLUSTER/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CLUSTERCDDEBBE4"
+          }
+        ],
+        "/MLflowStack/MLflow/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLflowDDA9BA68"
+          }
+        ],
+        "/MLflowStack/MLflow/Container/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLflowContainerLogGroupACBF29FF"
+          }
+        ],
+        "/MLflowStack/MLflow/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLflowExecutionRoleB8ECF96D"
+          }
+        ],
+        "/MLflowStack/MLflow/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLflowExecutionRoleDefaultPolicy23CB19EA"
+          }
+        ],
+        "/MLflowStack/MLFLOW/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWLB7B85C32A"
+          }
+        ],
+        "/MLflowStack/MLFLOW/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWLBPublicListener92B8F85A"
+          }
+        ],
+        "/MLflowStack/MLFLOW/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWLBPublicListenerECSGroupFAEEFBE6"
+          }
+        ],
+        "/MLflowStack/MLFLOW/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWLoadBalancerDNSAEFB7E43"
+          }
+        ],
+        "/MLflowStack/MLFLOW/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWServiceFC39EF8E"
+          }
+        ],
+        "/MLflowStack/MLFLOW/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWServiceSecurityGroup224B1FDD"
+          }
+        ],
+        "/MLflowStack/MLFLOW/Service/TaskCount/Target/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWServiceTaskCountTarget5798B92F"
+          }
+        ],
+        "/MLflowStack/MLFLOW/Service/TaskCount/Target/AUTOSCALING/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MLFLOWServiceTaskCountTargetAUTOSCALINGE4A5776E"
+          }
+        ],
+        "/MLflowStack/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoadBalancerDNS"
+          }
+        ],
+        "/MLflowStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/MLflowStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/MLflowStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/MLflowStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "MLflowStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
