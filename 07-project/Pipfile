@@ -10,6 +10,7 @@ pandas = "*"
 notebook = "*"
 aws-cdk-lib = "*"
 constructs = "*"
+sagemaker = "*"
 
 [dev-packages]
 
