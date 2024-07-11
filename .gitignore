@@ -169,3 +169,14 @@ credentials
 .envrc
 # AWS CDK
 cdk.out/
+
+#Local Model Artifacts
+**.pickle
+**.joblib
+**.h5
+**.pth
+**.pt
+**.pkl
+**.model
+**.sav
+**.bin
