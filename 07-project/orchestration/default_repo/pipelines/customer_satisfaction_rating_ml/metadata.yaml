@@ -3,7 +3,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - customer_satifaction_rating_transformer
+  - feature_engineering
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -17,20 +17,91 @@ blocks:
   uuid: customer_satifaction_rating_importer
 - all_upstream_blocks_executed: true
   color: null
+  configuration:
+    file_path: transformers/feature_engineering.py
+    file_source:
+      path: transformers/feature_engineering.py
+  downstream_blocks:
+  - encoder
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: feature_engineering
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - customer_satifaction_rating_importer
+  uuid: feature_engineering
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - scaler
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: encoder
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - feature_engineering
+  uuid: encoder
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - train_test_split
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: scaler
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - encoder
+  uuid: scaler
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - customer_rating_rf_trainning
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: train_test_split
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - scaler
+  uuid: train_test_split
+- all_upstream_blocks_executed: true
+  color: null
   configuration: {}
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: customer_satifaction_rating_transformer
+  name: customer_rating_rf_trainning
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
-  - customer_satifaction_rating_importer
-  uuid: customer_satifaction_rating_transformer
+  - train_test_split
+  uuid: customer_rating_rf_trainning
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
