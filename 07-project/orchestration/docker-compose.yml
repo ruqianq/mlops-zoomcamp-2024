@@ -1,53 +1,19 @@
+version: '3'
 services:
-  magic-platform:
-    env_file:
-      - .env.dev
+  server:
+    image: mageai/mageai:latest
     build:
       context: .
-    command: /app/run_app.sh mage start $PROJECT_NAME
+    command: mage start default_repo
+    environment:
+      - ENV=dev
+      - AWS_PROFILE=default
     ports:
       - 6789:6789
     volumes:
-      # Mount your local codebase to the container.
-      - .:/$MAGE_CODE_PATH
-      # Store the data output on local machine to easily debug (optional).
-      - ~/.mage_data:/$MAGE_CODE_PATH/mage_data
+      - .:/home/src
       # Initial credentials to create an IAM user with limited permissions for deployment.
-      - ~/.aws:/root/.aws
-      # Local machine’s SSH keys to pull and push to your GitHub repository.
-      - ~/.ssh:/root/.ssh:ro
-      # Local machine’s GitHub configs
-      - ~/.gitconfig:/root/.gitconfig:ro
+      - ~/.aws:/root/.aws:ro
     restart: on-failure:5
-    networks:
-      - app-network
-    depends_on:
-      - magic-database
     stdin_open: true # used for interactive debugging
     tty: true # used for interactive debugging
-  magic-database:
-    image: pgvector/pgvector:0.6.0-pg16
-    env_file:
-      - .env.dev
-    ports:
-      - 5432:5432
-    volumes:
-      - ~/.postgres/data:/var/lib/postgresql/data
-      # Custom database initialization scripts (optional).
-      - ./scripts/database:/docker-entrypoint-initdb.d
-    restart: always
-    networks:
-      - app-network
-  # mlflow:
-  #   build:
-  #     context: .
-  #     dockerfile: mlflow.dockerfile
-  #   ports:
-  #     - "5001:5000"
-  #   volumes:
-  #     - "${PWD}/mlflow:/home/mlflow/"
-  #   networks:
-  #     - app-network
-networks:
-  app-network:
-    driver: bridge

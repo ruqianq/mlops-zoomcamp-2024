@@ -1,26 +1,28 @@
-FROM mageai/mageai:alpha
+FROM mageai/mageai:latest
 
-ARG PROJECT_NAME=mlops
+# Replace default_repo with the name of your project (e.g. demo_project)
+ARG PROJECT_NAME=default_repo
 ARG MAGE_CODE_PATH=/home/src
 ARG USER_CODE_PATH=${MAGE_CODE_PATH}/${PROJECT_NAME}
 
+# Set the MAGE_CODE_PATH variable to the path of the Mage code.
+ENV PYTHONPATH="${PYTHONPATH}:${MAGE_CODE_PATH}"
+
 WORKDIR ${MAGE_CODE_PATH}
 
+# Replace [project_name] with the name of your project (e.g. demo_project)
 COPY ${PROJECT_NAME} ${PROJECT_NAME}
 
+# Set the USER_CODE_PATH variable to the path of user project.
+# The project path needs to contain project name.
+# Replace [project_name] with the name of your project (e.g. demo_project)
 ENV USER_CODE_PATH=${USER_CODE_PATH}
 
-# Install custom Python libraries and dependencies for your project.
-RUN pip3 install -r ${USER_CODE_PATH}/requirements.txt
+# Install custom Python libraries if requirements.txt exists
+RUN if [ -f ${USER_CODE_PATH}/requirements.txt ]; then pip3 install -r ${USER_CODE_PATH}/requirements.txt; fi
+# Install custom libraries within 3rd party libraries (e.g. DBT packages) if install_other_dependencies.py exists
+RUN if [ -f /app/install_other_dependencies.py ]; then python3 /app/install_other_dependencies.py --path ${USER_CODE_PATH}; fi
 
-ENV PYTHONPATH="${PYTHONPATH}:${MAGE_CODE_PATH}/${PROJECT_NAME}"
-
-# Installing necessary utilities and Terraform.
-# Uncomment the following lines if you want to use Terraform in Docker.
-# RUN apt-get update && \
-#   apt-get install -y wget unzip && \
-#   wget https://releases.hashicorp.com/terraform/1.8.3/terraform_1.8.3_linux_amd64.zip && \
-#   unzip terraform_1.8.3_linux_amd64.zip -d /usr/local/bin/ && \
-#   rm terraform_1.8.3_linux_amd64.zip
+ENV PYTHONPATH="${PYTHONPATH}:${MAGE_CODE_PATH}"
 
 CMD ["/bin/sh", "-c", "/app/run_app.sh"]
