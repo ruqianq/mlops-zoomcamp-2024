@@ -74,6 +74,7 @@ blocks:
   configuration: {}
   downstream_blocks:
   - customer_rating_rf_trainning
+  - customer_rating_xgb_training
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -96,12 +97,28 @@ blocks:
   language: python
   name: customer_rating_rf_trainning
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
   - train_test_split
   uuid: customer_rating_rf_trainning
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: customer_rating_xgb_training
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - train_test_split
+  uuid: customer_rating_xgb_training
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
