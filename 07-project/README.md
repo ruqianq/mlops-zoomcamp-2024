@@ -10,11 +10,11 @@ This is the project folder for the 2024 MLops Zoomcamp project.  I use a ML data
 - [Usage](#usage)
 
 ## Overview
+This project I break it down into different compounent, the services are all deployed to AWS and using Cloud Formation to deploy.
 
 ## Installation
 Install required package
 ```
-cd 07-project
 pipenv install
 ```
 
