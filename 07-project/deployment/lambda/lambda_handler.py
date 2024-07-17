@@ -4,14 +4,22 @@ import pickle
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from flask import Flask, request, jsonify
+import boto3
+import os
+import awsgi
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 
-def read_data(filename):
-    if filename.endswith(".csv"):
-        df = pd.read_csv(filename)
-
-    elif filename.endswith(".parquet"):
-        df = pd.read_parquet(filename)
+def read_data(s3_bucket, key):
+    s3_client = boto3.client(
+        "s3",
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    )
+    response = s3_client.get_object(Bucket=s3_bucket, Key=key)
+    df = pd.read_csv(response.get("Body"))
     df["Gender"] = df.Gender.astype("category")
     df["VisitFrequency"] = df.VisitFrequency.astype("category")
     df["PreferredCuisine"] = df.PreferredCuisine.astype("category")
@@ -72,18 +80,25 @@ def save_results(df, y_pred):
 app = Flask("customer-rating-prediction")
 
 
-@app.route("/score", methods=["POST"])
-def predict_endpoint():
-    categorical = ["PULocationID", "DOLocationID"]
-    df = read_data(
-        f"s3://customer-satisfaction-823124982163/predict/restaurant_customer_satisfaction 2.csv",
-        categorical=categorical,
-    )
-    y_pred = predict("model.bin", df, categorical=categorical)
-    df["ride_id"] = f"{2023:04d}/{5:02d}_" + df.index.astype("str")
-    result = save_results(df, y_pred)
+@app.route("/", methods=["POST"])
+def index():
+    try:
+        AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+        AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+        df = read_data(
+            "customer-satisfaction-823124982163",
+            "predict/restaurant_customer_satisfaction 2.csv",
+        )
+        y_pred = predict("models/lin_xbg.bin", df)
+        result = save_results(df, y_pred)
+    except Exception as e:
+        return jsonify({"error": str(e)}, status_code=500)
 
-    return jsonify(result)
+    return jsonify(result, stus_code=200)
+
+
+def lambda_handler(event, context):
+    return awsgi.response(app, event, context)
 
 
 if __name__ == "__main__":

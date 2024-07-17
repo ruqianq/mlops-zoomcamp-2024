@@ -13,6 +13,9 @@ constructs = "*"
 sagemaker = "*"
 xgboost = "*"
 hyperopt = "*"
+flask = "*"
+awsgi = "*"
+"aws-cdk.aws-lambda-python-alpha" = "*"
 
 [dev-packages]
 
