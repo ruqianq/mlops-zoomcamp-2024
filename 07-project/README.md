@@ -11,7 +11,12 @@ This is the project folder for the 2024 MLops Zoomcamp project.  I use a ML data
 - [Usage](#usage)
 
 ## Overview
-This project I break it down into different compounent, the services are all deployed to AWS and using Cloud Formation to deploy.
+This project I break it down into different compounent, the services are all deployed to AWS and using CloudFormation(CDK) to deploy.
+
+1. Deploy a MLflow server through CDK
+2. Train a Random Forest Classifier and XGBoost Classifier in SageMaker studio and store model artifast in S3 bucket
+3. Hyperparameter tuning XGBoost model and register the best parameter in MLflow
+4. Create a lambda function through CDK and deploy a Flask server as lambda function
 
 ## Prerequisites
 You will need to have pipenv installed and an aws account.
