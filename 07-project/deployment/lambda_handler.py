@@ -43,10 +43,10 @@ def read_data(s3_bucket, key):
     ]
     columns_to_encode = ["Gender", "MealType"]
     df = pd.get_dummies(df, columns=columns_to_dummy, dtype=int, drop_first=True)
-    labelencoder = LabelEncoder()
+    # labelencoder = LabelEncoder()
 
-    for col in columns_to_encode:
-        df[col] = labelencoder.fit_transform(df[col])
+    # for col in columns_to_encode:
+    #     df[col] = labelencoder.fit_transform(df[col])
 
     return df
 

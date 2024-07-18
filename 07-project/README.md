@@ -16,7 +16,6 @@ This project I break it down into different compounent, the services are all dep
 1. Deploy a MLflow server through CDK
 2. Train a Random Forest Classifier and XGBoost Classifier in SageMaker studio and store model artifast in S3 bucket
 3. Hyperparameter tuning XGBoost model and register the best parameter in MLflow
-4. Create a lambda function through CDK and deploy a Flask server as lambda function
 
 ## Prerequisites
 You will need to have pipenv installed and an aws account.
