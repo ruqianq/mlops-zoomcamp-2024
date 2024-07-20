@@ -74,6 +74,7 @@ export AWS_REGION=[YOUR AWS REGION]
     mlflow.set_tracking_uri('<YOUR LOAD BALANCER URI>')
     ```
     NOTE: this example is from [this repo](https://github.com/aws-samples/amazon-sagemaker-mlflow-fargate) from AWS
+    ![image info](images/Screenshot 2024-07-20 at 5.27.26 PM.png)
 
 2. Training and register model in SageMaker
     a. Open SageMaker Studio in AWS and Create a domain
