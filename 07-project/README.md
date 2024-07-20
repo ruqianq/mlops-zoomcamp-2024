@@ -74,7 +74,7 @@ export AWS_REGION=[YOUR AWS REGION]
     mlflow.set_tracking_uri('<YOUR LOAD BALANCER URI>')
     ```
     NOTE: this example is from [this repo](https://github.com/aws-samples/amazon-sagemaker-mlflow-fargate) from AWS
-    ![](./images/Screenshot 2024-07-20 at 5.27.26 PM.png)
+    ![](./images/mlflow.png)
 
 2. Training and register model in SageMaker
     a. Open SageMaker Studio in AWS and Create a domain
@@ -83,8 +83,8 @@ export AWS_REGION=[YOUR AWS REGION]
     cd notebooks
     ```
     c. Upload notebooks and run all the blocks and in the end you should be able to register the model and see the model artifest save under S3 bucket:
-    ![image info](./images/Screenshot 2024-07-20 at 5.37.49 PM.png)
-    ![image info](./images/Screenshot 2024-07-20 at 5.41.43 PM.png)
+    ![image info](./images/model_register.png)
+    ![image info](./images/s3.png)
 
 3. Training and register model in Mage
     a. Navigate to orchestration
@@ -97,4 +97,4 @@ export AWS_REGION=[YOUR AWS REGION]
     ```
     c. Navigate to [localhost](http://localhost:6789/)
     b. Run the pipeline:
-    ![](./images/Screenshot 2024-07-20 at 5.54.47 PM.png)
+    ![](./images/mage.png)
