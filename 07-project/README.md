@@ -96,5 +96,5 @@ export AWS_REGION=[YOUR AWS REGION]
     docker-compose up
     ```
     c. Navigate to [localhost](http://localhost:6789/)
-    b. Run the pipeline
-    ![image info](./images/Screenshot 2024-07-20 at 5.54.47 PM.png)
+    b. Run the pipeline:
+    ![](./images/Screenshot 2024-07-20 at 5.54.47 PM.png)
