@@ -82,7 +82,9 @@ export AWS_REGION=[YOUR AWS REGION]
     ```
     cd notebooks
     ```
-    c. Upload notebooks and run all the blocks
+    c. Upload notebooks and run all the blocks and in the end you should be able to register the model and see the model artifest save under S3 bucket:
+    ![image info](images/Screenshot 2024-07-20 at 5.37.49 PM.png)
+    ![image info](images/Screenshot 2024-07-20 at 5.41.43 PM.png)
 
 3. Training and register model in Mage
     a. Navigate to orchestration
@@ -94,3 +96,5 @@ export AWS_REGION=[YOUR AWS REGION]
     docker-compose up
     ```
     c. Navigate to [localhost](http://localhost:6789/)
+    b. Run the pipeline
+    ![image info](images/Screenshot 2024-07-20 at 5.54.47 PM.png)
