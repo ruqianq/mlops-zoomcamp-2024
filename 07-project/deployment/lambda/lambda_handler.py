@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
+import mlflow
+from mlflow.tracking import MlflowClient
+from sklearn.preprocessing import LabelEncoder
+
 import pickle
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder, StandardScaler
 from flask import Flask, request, jsonify
 import boto3
 import os
@@ -10,6 +13,19 @@ import awsgi
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI")
+AWS_S3_BUCKET = os.getenv("AWS_S3_BUCKET")
+
+
+def get_model(model_name):
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+
+    client = MlflowClient()
+    for mv in client.search_model_versions(f"name='{model_name}'").latest_versions:
+        s3_bucket = mv.tags["s3_bucket"]
+        s3_key = mv.tags["s3_key"]
+
+    return s3_bucket, s3_key
 
 
 def read_data(s3_bucket, key):
@@ -41,19 +57,20 @@ def read_data(s3_bucket, key):
         "TimeOfVisit",
         "DiningOccasion",
     ]
-    columns_to_encode = ["Gender", "MealType"]
     df = pd.get_dummies(df, columns=columns_to_dummy, dtype=int, drop_first=True)
-    # labelencoder = LabelEncoder()
-
-    # for col in columns_to_encode:
-    #     df[col] = labelencoder.fit_transform(df[col])
 
     return df
 
 
-def predict(model_file, df):
-    with open(model_file, "rb") as f_in:
-        dv, model = pickle.load(f_in)
+def predict(s3_bucket, key, df):
+    s3_client = boto3.client(
+        "s3",
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    )
+    response = s3_client.get_object(Bucket=s3_bucket, Key=key)
+    scaler, labelencoder, model = pickle.load(response.get("Body"))
+    print(df)
     num_columns = [
         "Age",
         "Income",
@@ -64,10 +81,14 @@ def predict(model_file, df):
         "FoodRating",
         "AmbianceRating",
     ]
-    scaler = StandardScaler()
-    x_scaled = scaler.fit_transform(df[num_columns])
+    columns_to_encode = ["Gender", "MealType"]
+    labelencoder = LabelEncoder()
+
+    for col in columns_to_encode:
+        df[col] = labelencoder.fit_transform(df[col])
+    x_scaled = scaler.transform(df[num_columns])
     df[num_columns] = pd.DataFrame(x_scaled, columns=num_columns)
-    return model.predict(x_scaled)
+    return model.predict(df)
 
 
 def save_results(df, y_pred):
@@ -81,15 +102,14 @@ app = Flask("customer-rating-prediction")
 
 
 @app.route("/", methods=["POST"])
-def index():
+def index(s3_key):
     try:
-        AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
-        AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
         df = read_data(
-            "customer-satisfaction-823124982163",
-            "predict/restaurant_customer_satisfaction 2.csv",
+            AWS_S3_BUCKET,
+            s3_key,
         )
-        y_pred = predict("models/lin_xbg.bin", df)
+        model = get_model("customer-satisfaction-classifier")
+        y_pred = predict(s3_bucket=model[0], key=model[1], df=df)
         result = save_results(df, y_pred)
     except Exception as e:
         return jsonify({"error": str(e)}, status_code=500)
@@ -99,7 +119,3 @@ def index():
 
 def lambda_handler(event, context):
     return awsgi.response(app, event, context)
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=9696)
