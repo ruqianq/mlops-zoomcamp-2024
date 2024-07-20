@@ -1,7 +1,18 @@
 # 2024 MLops Zoomcamp Customer Satisfaction at Restaurants Prediction Project
 
 ## Description
-This is the project folder for the 2024 MLops Zoomcamp project.  I use a ML data set from Kaggle [[Predict Restaurant Customer Satisfaction Dataset](https://www.kaggle.com/datasets/rabieelkharoua/predict-restaurant-customer-satisfaction-dataset/data)] to build my mlops pipeline.
+Welcome to the 2024 MLOps Zoomcamp Customer Satisfaction Prediction Project. In this project, we aim to predict customer satisfaction at restaurants using a machine learning pipeline. We utilize a dataset from Kaggle, the [Predict Restaurant Customer Satisfaction Dataset](https://www.kaggle.com/datasets/rabieelkharoua/predict-restaurant-customer-satisfaction-dataset/data), to build and deploy our models. The project covers the end-to-end MLOps lifecycle, including data preprocessing, model training, hyperparameter tuning, and model deployment.
+
+The services are deployed on AWS using CloudFormation (with AWS CDK), and the project demonstrates the integration of various AWS services such as SageMaker, S3, Lambda, and more.
+
+Key components of this project include:
+
+Deploying an MLflow Server: Using AWS CDK to deploy and manage an MLflow server for experiment tracking and model registry.
+Model Training: Training a Random Forest Classifier and XGBoost Classifier in Amazon SageMaker Studio, with the models and artifacts stored in an S3 bucket.
+Hyperparameter Tuning: Performing hyperparameter tuning on the XGBoost model and registering the best model parameters in MLflow.
+Model Deployment: Deploying the trained model as an AWS Lambda function using AWS CDK for serverless inference.
+References: [Manage your machine learning lifecycle with MLflow and Amazon SageMaker](https://github.com/aws-samples/amazon-sagemaker-mlflow-fargate)
+[Mage AI docker](https://github.com/mage-ai/docker)
 
 ## Table of Contents
 
