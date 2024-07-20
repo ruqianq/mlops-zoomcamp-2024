@@ -180,3 +180,4 @@ cdk.out/
 **.model
 **.sav
 **.bin
+.DS_Store
