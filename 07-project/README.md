@@ -19,13 +19,77 @@ This project I break it down into different compounent, the services are all dep
 4. Deploy model through CDK as a Lambda function
 
 ## Prerequisites
-You will need to have pipenv installed and an aws account.
+1. AWS Account
+You need an AWS account with sufficient permissions to create and manage resources such as S3 buckets, Lambda functions, and SageMaker instances.
+
+2.AWS CLI
+Install and configure the AWS Command Line Interface (CLI) to interact with AWS services.
+[Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+Configure AWS CLI with your credentials
+```
+aws configure
+```
+3.Python and Pipenv
+Ensure you have at least 3.10 python installed and latest pipenv
+[Install pipenv](https://chatgpt.com/c/51105a15-ecd5-46cc-b242-5d69d0163c7c#:~:text=and%20virtual%20environments.-,Install%20pipenv,-Install%20pipenv%20using)
+
+4. Docker
+Install Docker to build and deploy containerized applications.
 
 ## Installation
-Install required package
+1. Clone the Repository
+```
+git clone https://github.com/yourusername/mlops-zoomcamp-2024.git
+cd mlops-zoomcamp-2024/07-project
+```
+2. Install Required Packages and activate the virtual environment
+Install required package through pipenv
 ```
 pipenv install
+pipenv shell
+```
+3. Set Up Environment
+```
+export AWS_ACCESS_KEY_ID = [YOUR AWS ACCESS KEY ID]
+export AWS_SECRET_ACCESS_KEY = [YOUR AWS SECRET ACCESS KEY]
+export AWS_REGION=[YOUR AWS REGION]
 ```
 
 ## Usage
-Instructions on how to use your project and any relevant examples.
+1. Deploying MLflow Server as experiment tracking in AWS
+    a. Navigate to the MLflow Directory
+    ```
+    cd experiment-tracking
+    ```
+    b. Deploy MLflow using AWS CDK
+    ```
+    ACCOUNT_ID=$(aws sts get-caller-identity --query Account | tr -d '"')
+    AWS_REGION=$(aws configure get region)
+    cdk bootstrap aws://${ACCOUNT_ID}/${AWS_REGION}
+    cdk deploy --parameters ProjectName=mlflow --require-approval never
+    ```
+    c. Then you can navigate to your CloudFormation output and get the URL of your remote MLflow server
+    ```
+    import mlflow
+    mlflow.set_tracking_uri('<YOUR LOAD BALANCER URI>')
+    ```
+    NOTE: this example is from [this repo](https://github.com/aws-samples/amazon-sagemaker-mlflow-fargate) from AWS
+
+2. Training and register model in SageMaker
+    a. Open SageMaker Studio in AWS and Create a domain
+    b. Navigate to notebooks
+    ```
+    cd notebooks
+    ```
+    c. Upload notebooks and run all the blocks
+
+3. Training and register model in Mage
+    a. Navigate to orchestration
+    ```
+    cd orchestration
+    ```
+    b. Run the docker compose
+    ```
+    docker-compose up
+    ```
+    c. Navigate to [localhost](http://localhost:6789/)
