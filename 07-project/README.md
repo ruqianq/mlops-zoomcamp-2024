@@ -1,7 +1,9 @@
 # 2024 MLops Zoomcamp Customer Satisfaction at Restaurants Prediction Project
 
 ## Description
-Welcome to the 2024 MLOps Zoomcamp Customer Satisfaction Prediction Project. In this project, we aim to predict customer satisfaction at restaurants using a machine learning pipeline. We utilize a dataset from Kaggle, the [Predict Restaurant Customer Satisfaction Dataset](https://www.kaggle.com/datasets/rabieelkharoua/predict-restaurant-customer-satisfaction-dataset/data), to build and deploy our models. The project covers the end-to-end MLOps lifecycle, including data preprocessing, model training, hyperparameter tuning, and model deployment.
+Welcome to the 2024 MLOps Zoomcamp Customer Satisfaction Prediction Project.
+
+In this project, we aim to predict customer satisfaction at restaurants using a machine learning pipeline and create a MLops pipeline with Microsoft MLops Maturity level 2 with automated training using Mage ai. We utilize a dataset from Kaggle, the [Predict Restaurant Customer Satisfaction Dataset](https://www.kaggle.com/datasets/rabieelkharoua/predict-restaurant-customer-satisfaction-dataset/data), to build and deploy our models. The project covers the end-to-end MLOps lifecycle, including data preprocessing, model training, hyperparameter tuning, and model deployment.
 
 The services are deployed on AWS using CloudFormation (with AWS CDK), and the project demonstrates the integration of various AWS services such as SageMaker, S3, Lambda, and more.
 
@@ -27,7 +29,10 @@ This project I break it down into different compounent, the services are all dep
 1. Deploy a MLflow server through CDK
 2. Train a Random Forest Classifier and XGBoost Classifier in SageMaker studio and store model artifast in S3 bucket
 3. Hyperparameter tuning XGBoost model and register the best parameter in MLflow
-4. Deploy model through CDK as a Lambda function
+4. Productionize the training pipeline in Mage to orchestrate the flow
+5. Deploy model through CDK as a Lambda function
+
+![image info](./images/mlops.drawio.png)
 
 ## Prerequisites
 1. AWS Account
