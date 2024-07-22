@@ -8,9 +8,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 
 import mlflow
 
-mlflow.set_tracking_uri(
-    "http://MLflow-MLFLO-QpxAlKAMoAEb-7f0b3c0531d6ae08.elb.us-east-1.amazonaws.com"
-)
+mlflow.set_tracking_uri("[your mlflow tracking uri]")
 mlflow.set_experiment("customer-satisfaction_ml")
 
 
@@ -22,9 +20,7 @@ def transform_custom(data, *args, **kwargs):
     Returns:
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
-    mlflow.set_tracking_uri(
-        "http://MLflow-MLFLO-QpxAlKAMoAEb-7f0b3c0531d6ae08.elb.us-east-1.amazonaws.com"
-    )
+    mlflow.set_tracking_uri("[your mlflow tracking uri]")
     mlflow.set_experiment("customer-satisfaction_ml")
     x_train = data[0]
     x_test = data[1]

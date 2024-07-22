@@ -35,9 +35,7 @@ def transform(data, *args, **kwargs):
     }
 
     model_rf = RandomForestClassifier(**params_rf)
-    mlflow.set_tracking_uri(
-        "http://MLflow-MLFLO-QpxAlKAMoAEb-7f0b3c0531d6ae08.elb.us-east-1.amazonaws.com"
-    )
+    mlflow.set_tracking_uri("[your mlflow tracking uri]")
     mlflow.set_experiment("customer-satisfaction_ml")
     with mlflow.start_run(run_name="mlops_project"):
 

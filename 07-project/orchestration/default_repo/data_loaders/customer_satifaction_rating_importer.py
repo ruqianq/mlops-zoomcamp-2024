@@ -20,7 +20,7 @@ def load_from_s3_bucket(*args, **kwargs):
     config_path = path.join(get_repo_path(), "io_config.yaml")
     config_profile = "default"
 
-    bucket_name = "customer-satisfaction-823124982163"
+    bucket_name = "[your bucket name]"
     object_key = "train/restaurant_customer_satisfaction.csv"
 
     return S3.with_config(ConfigFileLoader(config_path, config_profile)).load(
