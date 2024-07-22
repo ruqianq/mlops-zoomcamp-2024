@@ -12,7 +12,7 @@ Key components of this project include:
 - Deploying an MLflow Server: Using AWS CDK to deploy and manage an MLflow server for experiment tracking and model registry.
 - Model Training: Training a Random Forest Classifier and XGBoost Classifier in Amazon SageMaker Studio, with the models and artifacts stored in an S3 bucket.
 - Hyperparameter Tuning: Performing hyperparameter tuning on the XGBoost model and registering the best model parameters in MLflow.
-- MLops pipeline Orchestraction: Using Mage AI automate the training pipeline and model deployment
+- MLops Orchestraction: Using Mage AI automate the training pipeline and model deployment
 - Model Deployment: Deploying the trained model as an AWS Lambda function using AWS CDK for serverless inference.
 
 References: [Manage your machine learning lifecycle with MLflow and Amazon SageMaker](https://github.com/aws-samples/amazon-sagemaker-mlflow-fargate)
